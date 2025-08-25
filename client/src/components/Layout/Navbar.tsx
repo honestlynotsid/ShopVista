@@ -25,11 +25,21 @@ const Navbar: React.FC<NavbarProps> = ({ onCartToggle, onSearchChange }) => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm" data-testid="navbar">
+    <nav className="navbar navbar-expand-lg navbar-light bg-white dark:bg-gray-900 sticky-top shadow-sm" data-testid="navbar">
       <div className="container">
-        <Link href="/" className="navbar-brand text-primary" data-testid="brand-link">
-          <i className="fas fa-shopping-bag me-2"></i>ShopHub
-        </Link>
+        <div className="d-flex align-items-center">
+          <Link href="/" className="navbar-brand text-primary me-3" data-testid="brand-link">
+            <i className="fas fa-shopping-bag me-2"></i>Dukan
+          </Link>
+          <Link href="/cart" className="btn btn-primary position-relative" data-testid="cart-button-header">
+            <i className="fas fa-shopping-cart"></i>
+            {getItemCount() > 0 && (
+              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning cart-badge" data-testid="cart-count-header">
+                {getItemCount()}
+              </span>
+            )}
+          </Link>
+        </div>
         
         <button 
           className="navbar-toggler" 
@@ -110,14 +120,14 @@ const Navbar: React.FC<NavbarProps> = ({ onCartToggle, onSearchChange }) => {
                 </span>
               )}
             </Link>
-            <Link href="/cart" className="btn btn-primary position-relative me-2" data-testid="cart-button">
-              <i className="fas fa-shopping-cart"></i>
-              {getItemCount() > 0 && (
-                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning cart-badge" data-testid="cart-count">
-                  {getItemCount()}
-                </span>
-              )}
-            </Link>
+            <button 
+              className="btn btn-outline-secondary position-relative me-2" 
+              onClick={() => document.documentElement.classList.toggle('dark')}
+              data-testid="theme-toggle"
+              title="Toggle dark mode"
+            >
+              <i className="fas fa-moon"></i>
+            </button>
             <div className="dropdown">
               <button 
                 className="btn btn-outline-secondary dropdown-toggle" 

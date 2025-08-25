@@ -77,6 +77,12 @@
 
   body {
     @apply font-sans antialiased bg-background text-foreground;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .dark body {
+    background-color: #111827;
+    color: #f9fafb;
   }
 }
 
@@ -84,6 +90,64 @@
 .navbar-brand {
   font-weight: 700;
   font-size: 1.5rem;
+}
+
+/* Dark theme for navbar */
+.dark .navbar {
+  background-color: #1f2937 !important;
+  border-bottom: 1px solid #374151;
+}
+
+.dark .navbar-brand,
+.dark .nav-link {
+  color: #f9fafb !important;
+}
+
+.dark .navbar-brand:hover,
+.dark .nav-link:hover {
+  color: #3b82f6 !important;
+}
+
+.dark .dropdown-menu {
+  background-color: #374151;
+  border: 1px solid #4b5563;
+}
+
+.dark .dropdown-item {
+  color: #f9fafb;
+}
+
+.dark .dropdown-item:hover {
+  background-color: #4b5563;
+  color: #3b82f6;
+}
+
+.dark .btn-outline-secondary {
+  border-color: #6b7280;
+  color: #f9fafb;
+}
+
+.dark .btn-outline-secondary:hover {
+  background-color: #6b7280;
+  border-color: #6b7280;
+  color: #ffffff;
+}
+
+.dark .form-control {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #f9fafb;
+}
+
+.dark .form-control:focus {
+  background-color: #374151;
+  border-color: #3b82f6;
+  color: #f9fafb;
+  box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
+}
+
+.dark .form-control::placeholder {
+  color: #9ca3af;
 }
 
 .hero-section {
@@ -171,6 +235,62 @@
 
 .footer .text-muted {
   color: #adb5bd !important;
+}
+
+/* Dark theme footer */
+.dark .footer {
+  background-color: #0f172a;
+}
+
+/* Dark theme cards and components */
+.dark .card {
+  background-color: #1f2937;
+  border-color: #374151;
+  color: #f9fafb;
+}
+
+.dark .product-card {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+.dark .product-card .card-body {
+  color: #f9fafb;
+}
+
+.dark .text-muted {
+  color: #9ca3af !important;
+}
+
+.dark .bg-light {
+  background-color: #374151 !important;
+}
+
+.dark .filter-sidebar {
+  background-color: #1f2937 !important;
+  border: 1px solid #374151;
+}
+
+.dark .modal-content {
+  background-color: #1f2937;
+  border-color: #374151;
+  color: #f9fafb;
+}
+
+.dark .offcanvas {
+  background-color: #1f2937;
+  color: #f9fafb;
+}
+
+.dark .btn-outline-primary {
+  border-color: #3b82f6;
+  color: #3b82f6;
+}
+
+.dark .btn-outline-primary:hover {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+  color: #ffffff;
 }
 
 .cart-item {

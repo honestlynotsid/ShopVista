@@ -34,7 +34,7 @@ const QuickView: React.FC<QuickViewProps> = ({ product, isOpen, onClose }) => {
       button.disabled = true;
       
       // Trigger cart icon animation in navbar
-      const cartIcon = document.querySelector('[data-testid="cart-button"] i');
+      const cartIcon = document.querySelector('[data-testid="cart-button-header"] i');
       if (cartIcon) {
         cartIcon.classList.add('cart-icon-pulse');
         setTimeout(() => {
