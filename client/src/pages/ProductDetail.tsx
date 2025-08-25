@@ -36,7 +36,32 @@ const ProductDetail: React.FC = () => {
 
   const handleAddToCart = () => {
     addToCart(product, quantity, selectedSize, selectedColor);
-    // Visual feedback could be added here
+    
+    // Enhanced visual feedback with animation
+    const button = document.querySelector('[data-testid="add-to-cart-detail"]') as HTMLButtonElement;
+    if (button) {
+      const originalText = button.innerHTML;
+      
+      // Add animation class
+      button.classList.add('adding');
+      button.innerHTML = '<i class="fas fa-check me-2"></i>Added to Cart!';
+      button.disabled = true;
+      
+      // Trigger cart icon animation in navbar
+      const cartIcon = document.querySelector('[data-testid="cart-button"] i');
+      if (cartIcon) {
+        cartIcon.classList.add('cart-icon-pulse');
+        setTimeout(() => {
+          cartIcon.classList.remove('cart-icon-pulse');
+        }, 600);
+      }
+      
+      setTimeout(() => {
+        button.innerHTML = originalText;
+        button.disabled = false;
+        button.classList.remove('adding');
+      }, 1500);
+    }
   };
 
   const handleWishlistToggle = () => {
@@ -220,7 +245,7 @@ const ProductDetail: React.FC = () => {
 
           <div className="d-grid gap-3">
             <button 
-              className="btn btn-primary btn-lg" 
+              className="btn btn-primary btn-add-to-cart btn-lg" 
               onClick={handleAddToCart}
               data-testid="add-to-cart-detail"
             >

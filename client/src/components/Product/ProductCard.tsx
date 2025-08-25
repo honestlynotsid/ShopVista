@@ -17,15 +17,28 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView }) => {
     e.preventDefault();
     addToCart(product, 1);
     
-    // Visual feedback
+    // Enhanced visual feedback with animation
     const button = e.target as HTMLButtonElement;
     const originalText = button.innerHTML;
+    
+    // Add animation class
+    button.classList.add('adding');
     button.innerHTML = '<i class="fas fa-check me-2"></i>Added!';
     button.disabled = true;
+    
+    // Trigger cart icon animation in navbar
+    const cartIcon = document.querySelector('[data-testid="cart-button"] i');
+    if (cartIcon) {
+      cartIcon.classList.add('cart-icon-pulse');
+      setTimeout(() => {
+        cartIcon.classList.remove('cart-icon-pulse');
+      }, 600);
+    }
     
     setTimeout(() => {
       button.innerHTML = originalText;
       button.disabled = false;
+      button.classList.remove('adding');
     }, 1500);
   };
 
@@ -105,7 +118,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView }) => {
           </div>
           <div className="mt-auto">
             <button 
-              className="btn btn-primary w-100 mb-2" 
+              className="btn btn-primary btn-add-to-cart w-100 mb-2" 
               onClick={handleAddToCart}
               data-testid={`add-to-cart-${product.id}`}
             >

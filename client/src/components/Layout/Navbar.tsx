@@ -110,18 +110,14 @@ const Navbar: React.FC<NavbarProps> = ({ onCartToggle, onSearchChange }) => {
                 </span>
               )}
             </Link>
-            <button 
-              className="btn btn-primary position-relative me-2" 
-              onClick={onCartToggle}
-              data-testid="cart-button"
-            >
+            <Link href="/cart" className="btn btn-primary position-relative me-2" data-testid="cart-button">
               <i className="fas fa-shopping-cart"></i>
               {getItemCount() > 0 && (
                 <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning cart-badge" data-testid="cart-count">
                   {getItemCount()}
                 </span>
               )}
-            </button>
+            </Link>
             <div className="dropdown">
               <button 
                 className="btn btn-outline-secondary dropdown-toggle" 

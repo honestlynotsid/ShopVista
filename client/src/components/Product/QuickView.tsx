@@ -22,7 +22,30 @@ const QuickView: React.FC<QuickViewProps> = ({ product, isOpen, onClose }) => {
 
   const handleAddToCart = () => {
     addToCart(product, quantity, selectedSize, selectedColor);
-    onClose();
+    
+    // Enhanced visual feedback with animation
+    const button = document.querySelector('[data-testid="quick-view-add-to-cart"]') as HTMLButtonElement;
+    if (button) {
+      const originalText = button.innerHTML;
+      
+      // Add animation class
+      button.classList.add('adding');
+      button.innerHTML = '<i class="fas fa-check me-2"></i>Added!';
+      button.disabled = true;
+      
+      // Trigger cart icon animation in navbar
+      const cartIcon = document.querySelector('[data-testid="cart-button"] i');
+      if (cartIcon) {
+        cartIcon.classList.add('cart-icon-pulse');
+        setTimeout(() => {
+          cartIcon.classList.remove('cart-icon-pulse');
+        }, 600);
+      }
+      
+      setTimeout(() => {
+        onClose();
+      }, 1000);
+    }
   };
 
   const handleAddToWishlist = () => {
@@ -198,7 +221,7 @@ const QuickView: React.FC<QuickViewProps> = ({ product, isOpen, onClose }) => {
 
                 <div className="d-grid gap-2">
                   <button 
-                    className="btn btn-primary" 
+                    className="btn btn-primary btn-add-to-cart" 
                     onClick={handleAddToCart}
                     data-testid="quick-view-add-to-cart"
                   >
