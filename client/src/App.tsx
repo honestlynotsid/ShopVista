@@ -58,7 +58,7 @@ function Router() {
           <Route path="/" component={() => <Home onQuickView={handleQuickView} />} />
           <Route path="/products" component={() => <Products searchQuery={searchQuery} onQuickView={handleQuickView} />} />
           <Route path="/product/:id" component={ProductDetail} />
-          <Route path="/cart" component={Cart} />
+          <Route path="/cart" component={() => <Cart onQuickView={handleQuickView} />} />
           <Route path="/checkout" component={Checkout} />
           <Route component={NotFound} />
         </Switch>

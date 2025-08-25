@@ -1,9 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'wouter';
 import { useCart } from '../contexts/CartContext';
+import { products } from '../data/products';
+import ProductCard from '../components/Product/ProductCard';
 
-const Cart: React.FC = () => {
+interface CartProps {
+  onQuickView?: (product: any) => void;
+}
+
+const Cart: React.FC<CartProps> = ({ onQuickView }) => {
   const { items, subtotal, shipping, tax, total, updateQuantity, removeFromCart } = useCart();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  // Get featured products for carousel (first 6 products)
+  const featuredProducts = products.slice(0, 6);
+  const productsPerSlide = 3;
+  const totalSlides = Math.ceil(featuredProducts.length / productsPerSlide);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % totalSlides);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  };
+
+  const getCurrentProducts = () => {
+    const start = currentSlide * productsPerSlide;
+    return featuredProducts.slice(start, start + productsPerSlide);
+  };
 
   const handleQuantityChange = (productId: string, newQuantity: number) => {
     if (newQuantity <= 0) {
@@ -16,6 +41,38 @@ const Cart: React.FC = () => {
   if (items.length === 0) {
     return (
       <div className="container py-5" data-testid="empty-cart-page">
+        {/* Featured Products Carousel */}
+        <div className="mb-5">
+          <div className="d-flex justify-content-between align-items-center mb-4">
+            <h3>You might also like</h3>
+            <div className="carousel-controls">
+              <button 
+                className="btn btn-outline-primary me-2" 
+                onClick={prevSlide}
+                data-testid="carousel-prev"
+              >
+                <i className="fas fa-chevron-left"></i>
+              </button>
+              <button 
+                className="btn btn-outline-primary" 
+                onClick={nextSlide}
+                data-testid="carousel-next"
+              >
+                <i className="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+          <div className="row" data-testid="featured-carousel">
+            {getCurrentProducts().map(product => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                onQuickView={onQuickView || (() => {})}
+              />
+            ))}
+          </div>
+        </div>
+
         <div className="text-center">
           <i className="fas fa-shopping-cart fa-5x text-muted mb-4"></i>
           <h2>Your cart is empty</h2>
@@ -30,6 +87,38 @@ const Cart: React.FC = () => {
 
   return (
     <div className="container py-5" data-testid="cart-page">
+      {/* Featured Products Carousel */}
+      <div className="mb-5">
+        <div className="d-flex justify-content-between align-items-center mb-4">
+          <h3>Recommended for you</h3>
+          <div className="carousel-controls">
+            <button 
+              className="btn btn-outline-primary me-2" 
+              onClick={prevSlide}
+              data-testid="carousel-prev"
+            >
+              <i className="fas fa-chevron-left"></i>
+            </button>
+            <button 
+              className="btn btn-outline-primary" 
+              onClick={nextSlide}
+              data-testid="carousel-next"
+            >
+              <i className="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+        <div className="row" data-testid="featured-carousel">
+          {getCurrentProducts().map(product => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              onQuickView={onQuickView || (() => {})}
+            />
+          ))}
+        </div>
+      </div>
+
       <div className="row">
         <div className="col-lg-8">
           <h2 className="mb-4">Shopping Cart</h2>
